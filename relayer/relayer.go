@@ -70,7 +70,7 @@ type IChainSubmitter interface {
 
 func GetListener(chain uint64) (listener IChainListener) {
 	switch chain {
-	case base.PLT:
+	case base.PLT, base.BCSPALETTE:
 		listener = new(plt.Listener)
 	case base.POLY:
 		listener = new(po.Listener)
@@ -81,7 +81,7 @@ func GetListener(chain uint64) (listener IChainListener) {
 
 func GetSubmitter(chain uint64) (submitter IChainSubmitter) {
 	switch chain {
-	case base.PLT:
+	case base.PLT, base.BCSPALETTE:
 		submitter = new(plt.Submitter)
 	default:
 		if base.SameAsETH(chain) {

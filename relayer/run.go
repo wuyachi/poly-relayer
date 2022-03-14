@@ -87,7 +87,7 @@ func (s *Server) parseHandler(chain uint64, conf interface{}) (handler Handler) 
 		return
 	}
 	switch chain {
-	case base.PLT:
+	case base.PLT, base.BCSPALETTE:
 	default:
 		return nil
 	}

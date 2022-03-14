@@ -159,7 +159,7 @@ func (tx *Tx) SkipFee() bool {
 		return true
 	}
 	switch tx.DstChainId {
-	case base.PLT, base.O3:
+	case base.PLT, base.BCSPALETTE, base.O3:
 		return true
 	}
 	return false
