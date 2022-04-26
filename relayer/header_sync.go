@@ -229,7 +229,7 @@ LOOP:
 			}
 		}
 		header, hash, err := h.listener.Header(h.height)
-		log.Debug("Header sync fetched block header", "height", h.height, "chain", h.config.ChainId, "err", err)
+		log.Info("Header sync fetched block header", "height", h.height, "chain", h.config.ChainId, "err", err)
 		if err == nil {
 			select {
 			case ch <- msg.Header{Data: header, Height: h.height, Hash: hash}:
