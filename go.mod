@@ -29,4 +29,5 @@ replace (
 	github.com/polynetwork/poly => github.com/zhiqiangxu/poly v0.0.0-20210512064417-e8c8ac7678d4
 	github.com/tendermint/iavl => github.com/okex/iavl v0.14.3-exchain
 	github.com/tendermint/tendermint => github.com/okex/tendermint v0.33.9-exchain6
+	github.com/polynetwork/bridge-common => github.com/wuyachi/bridge-common v0.0.0-20220516130219-939394c6eea5
 )
