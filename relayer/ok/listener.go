@@ -67,6 +67,7 @@ func (l *Listener) Init(config *config.ListenerConfig, poly *poly.SDK) (err erro
 
 func (l *Listener) Header(height uint64) (header []byte, hash []byte, err error) {
 	cr, err := l.tm.Node().QueryCommitResult(height)
+	fmt.Printf("tm node %s\n", l.tm.Node().Address())
 	if err != nil {
 		err = fmt.Errorf("OKex query commit result height %d error %v", height, err)
 		return
@@ -164,6 +165,7 @@ func (l *Listener) Compose(tx *msg.Tx) (err error) {
 		return
 	}
 	cr, err := l.tm.Node().QueryCommitResult(tx.SrcProofHeight)
+	fmt.Printf("tm node %s\n", l.tm.Node().Address())
 	if err != nil {
 		return
 	}
