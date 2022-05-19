@@ -68,6 +68,10 @@ func (l *Listener) Init(config *config.ListenerConfig, poly *poly.SDK) (err erro
 func (l *Listener) Header(height uint64) (header []byte, hash []byte, err error) {
 	cr, err := l.tm.Node().QueryCommitResult(height)
 	fmt.Printf("tm node %s\n", l.tm.Node().Address())
+	testUrl := "http://10.203.0.33:26657"
+	if testUrl == l.tm.Node().Address() {
+		err = fmt.Errorf("%s debug error", testUrl)
+	}
 	if err != nil {
 		err = fmt.Errorf("OKex query commit result height %d error %v", height, err)
 		return
