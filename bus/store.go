@@ -65,7 +65,7 @@ func NewRedisChainStore(key Key, db *redis.Client, interval uint64) *RedisChainS
 func (s *RedisChainStore) UpdateHeight(ctx context.Context, height uint64) error {
 	_, err := s.db.Set(ctx, s.Key.Key(), height, 0).Result()
 	if err != nil {
-		return fmt.Errorf("Failed to update height %v", err)
+		return fmt.Errorf("update height failed. key:%s, height:%d, error %v", s.Key.Key(), height, err)
 	}
 	return nil
 }
@@ -82,7 +82,7 @@ func (s *RedisChainStore) HeightMark(height uint64) error {
 func (s *RedisChainStore) GetHeight(ctx context.Context) (height uint64, err error) {
 	v, err := s.db.Get(ctx, s.Key.Key()).Result()
 	if err != nil {
-		return 0, fmt.Errorf("Get chain height error %v", err)
+		return 0, fmt.Errorf("get chain height failed. key:%s, error: %v", s.Key.Key(), err)
 	}
 	h, _ := strconv.Atoi(v)
 	height = uint64(h)
