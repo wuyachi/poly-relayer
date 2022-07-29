@@ -131,6 +131,7 @@ func SyncContractGenesis(ctx *cli.Context) (err error) {
 
 	epoch, err := ps.SDK().Node().GetEpochInfo(0)
 	if err != nil {
+		log.Error("GetEpochInfo", "err", err)
 		return
 	}
 	if epoch == nil {
@@ -139,30 +140,36 @@ func SyncContractGenesis(ctx *cli.Context) (err error) {
 
 	sub, err := ChainSubmitter(chainID)
 	if err != nil {
+		log.Error("ChainSubmitter", "err", err)
 		return
 	}
 	lis, err := PolyListener()
 	if err != nil {
+		log.Error("PolyListener", "err", err)
 		return
 	}
 
 	height, err := sub.GetPolyEpochStartHeight(0)
 	if err != nil {
+		log.Error("GetPolyEpochStartHeight", "err", err)
 		return
 	}
 	if height == 0 {
 		info, err := lis.EpochById(epoch.ID.Uint64())
 		if err != nil {
+			log.Error("EpochById", "err", err)
 			return err
 		}
 
 		eccmAbi, err := abi.JSON(strings.NewReader(eccm_abi.EthCrossChainManagerImplementationABI))
 		if err != nil {
+			log.Error("abi.JSON", "err", err)
 			return err
 		}
 
 		data, err := eccmAbi.Pack("initGenesisBlock", info.Header)
 		if err != nil {
+			log.Error("eccmAbi.Pack", "err", err)
 			return err
 		}
 		log.Info("info.Header", "", common.Bytes2Hex(info.Header))
