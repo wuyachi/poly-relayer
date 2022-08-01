@@ -157,6 +157,8 @@ func SyncContractGenesis(ctx *cli.Context) (err error) {
 		log.Error("GetPolyEpochStartHeight", "err", err)
 		return
 	}
+	log.Info("PolyEpochStartHeight", "height", height)
+
 	if height == 0 {
 		info, err := lis.EpochById(epoch.ID.Uint64())
 		if err != nil {
