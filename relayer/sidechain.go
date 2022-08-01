@@ -121,11 +121,13 @@ func ApproveSideChain(ctx *cli.Context) (err error) {
 }
 
 func SyncContractGenesis(ctx *cli.Context) (err error) {
+	log.Info("start SyncContractGenesis")
 	chainID := ctx.Uint64("chain")
 	ccm := ctx.String("ccm")
 	sync := ctx.Bool("sync")
 	ps, err := PolySubmitter()
 	if err != nil {
+		log.Error("PolySubmitter()", "err", err)
 		return
 	}
 
@@ -135,6 +137,7 @@ func SyncContractGenesis(ctx *cli.Context) (err error) {
 		return
 	}
 	if epoch == nil {
+		log.Error("epoch not found in zion?")
 		return fmt.Errorf("epoch not found in zion?")
 	}
 
