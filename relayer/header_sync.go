@@ -99,17 +99,20 @@ LOOP:
 		header, hash, err := h.listener.Header(h.height)
 		log.Debug("Header sync fetched block header", "height", h.height, "chain", h.config.ChainId, "err", err)
 		if err == nil {
-			if header == nil {
+			err = h.store.SetHeaderHeight(h.height)
+			if err != nil {
+				log.Error("Update header sync height height failure", "chain", h.config.ChainId, "height", h.height, "err", err)
 				continue
 			}
-			err = h.store.InsertHeader(h.height, hash, header)
-			if err == nil {
-				err = h.store.SetHeaderHeight(h.height)
+
+			if header != nil {
+				err = h.store.InsertHeader(h.height, hash, header)
 				if err != nil {
-					log.Error("Update tx vote height failure", "chain", h.config.ChainId, "height", h.height, "err", err)
+					log.Error("Insert header failure", "chain", h.config.ChainId, "height", h.height, "err", err)
+					continue
 				}
-				continue
 			}
+			continue
 		}
 
 		log.Error("Fetch block header error", "chain", h.config.ChainId, "height", h.height, "err", err)
@@ -204,10 +207,15 @@ func (h *HeaderSyncHandler) replenish() {
 }
 
 func (h *HeaderSyncHandler) Start() (err error) {
-	h.height, err = h.store.GetHeaderHeight()
-	if err != nil {
-		return
+	if h.config.StartHeight != 0 {
+		h.height = h.config.StartHeight
+	} else {
+		h.height, err = h.store.GetHeaderHeight()
+		if err != nil {
+			return
+		}
 	}
+
 	log.Info("Header sync will start...", "height", h.height+1, "chain", h.config.ChainId)
 	h.submitter.StartHeaderVote(h.Context, h.wg, h.config, h.store)
 	go h.start()
