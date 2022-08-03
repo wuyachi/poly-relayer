@@ -147,7 +147,7 @@ func (h *HeaderSyncHandler) startReplenish() {
 			break
 		}
 
-		log.Info("Scanning header sync replenish in block", "zion height", h.zionReplenishHeight, "chain", h.config.ChainId)
+		log.Debug("Scanning header sync replenish in block", "zion height", h.zionReplenishHeight, "chain", h.config.ChainId)
 		opt := &bind.FilterOpts{
 			Start:   h.zionReplenishHeight,
 			End:     &h.zionReplenishHeight,
