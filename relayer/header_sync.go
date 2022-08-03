@@ -106,6 +106,7 @@ LOOP:
 			}
 
 			if header != nil {
+				log.Info("Header sync fetched block header", "height", h.height, "chain", h.config.ChainId)
 				err = h.store.InsertHeader(h.height, hash, header)
 				if err != nil {
 					log.Error("Insert header failure", "chain", h.config.ChainId, "height", h.height, "err", err)
@@ -162,7 +163,7 @@ func (h *HeaderSyncHandler) startReplenish() {
 				}
 
 				for _, height := range ev.Heights {
-					log.Info("Header sync processing block", "height", height, "chain", h.config.ChainId)
+					log.Info("Header sync replenish processing block", "height", height, "chain", h.config.ChainId)
 
 					if srcLatest < uint64(height)+srcConfirms {
 						log.Warn("Skip header replenish, block not confirmed", "height", height, "chain", h.config.ChainId)
