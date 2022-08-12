@@ -219,7 +219,7 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 		info := err.Error()
 		if strings.Contains(info, "business contract failed") {
 			err = fmt.Errorf("%w tx exec error %v", msg.ERR_TX_EXEC_FAILURE, err)
-		} else if strings.Contains(info, "higher than max limit") ||  strings.Contains(info, "max limit is zero or missing") {
+		} else if strings.Contains(info, "higher than max limit") || strings.Contains(info, "max limit is zero or missing") {
 			err = fmt.Errorf("%w %v", msg.ERR_PAID_FEE_TOO_LOW, err)
 		} else if strings.Contains(info, "always failing") {
 			err = fmt.Errorf("%w tx exec error %v", msg.ERR_TX_EXEC_ALWAYS_FAIL, err)
@@ -300,7 +300,7 @@ func (s *Submitter) run(account accounts.Account, mq bus.TxBus, delay bus.Delaye
 			// Retry to verify a successful submit
 			tsp := int64(0)
 			switch s.config.ChainId {
-			case base.MATIC, base.PLT:
+			case base.MATIC, base.PLT, base.PLT2, base.BCSPALETTE, base.BCSPALETTE2:
 				tsp = time.Now().Unix() + 60*3
 			case base.ARBITRUM, base.XDAI, base.OPTIMISM, base.AVA, base.FANTOM, base.RINKEBY, base.BOBA, base.OASIS:
 				tsp = time.Now().Unix() + 60*25

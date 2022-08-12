@@ -91,7 +91,7 @@ type Tx struct {
 	DstData                 []byte                `json:"-"`
 	DstProxy                string                `json:",omitempty"`
 	SkipCheckFee            bool                  `json:",omitempty"`
-	CheckFeeOff             bool                  `json:"-"` 			// CheckFee disabled in submitter
+	CheckFeeOff             bool                  `json:"-"` // CheckFee disabled in submitter
 	Skipped                 bool                  `json:",omitempty"`
 	PaidGas                 float64               `json:",omitempty"`
 	CheckFeeStatus          bridge.CheckFeeStatus `json:",omitempty"`
@@ -161,7 +161,7 @@ func (tx *Tx) SkipFee() bool {
 		return true
 	}
 	switch tx.DstChainId {
-	case base.PLT, base.O3:
+	case base.PLT, base.PLT2, base.BCSPALETTE, base.BCSPALETTE2, base.O3:
 		return true
 	}
 	return false

@@ -25,7 +25,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/polynetwork/bridge-common/base"
 	"github.com/polynetwork/bridge-common/chains/poly"
 	"github.com/polynetwork/bridge-common/log"
 	"github.com/polynetwork/poly-relayer/config"
@@ -83,11 +82,11 @@ func (l *Listener) LastHeaderSync(force, last uint64) (height uint64, err error)
 		return
 	}
 
-	height, err = l.Poly().Node().GetSideChainConsensusBlockHeight(base.PLT)
+	height, err = l.Poly().Node().GetSideChainConsensusBlockHeight(l.ChainId())
 	if err != nil {
 		return
 	}
-	data, err := l.Poly().Node().GetSideChainConsensusPeer(base.PLT)
+	data, err := l.Poly().Node().GetSideChainConsensusPeer(l.ChainId())
 	if err != nil {
 		return
 	}

@@ -469,7 +469,7 @@ func (s *Submitter) CheckHeaderExistence(header *msg.Header) (ok bool, err error
 	}
 
 	var hash []byte
-	if s.sync.ChainId == base.PLT {
+	if s.sync.ChainId == base.PLT || s.sync.ChainId == base.PLT2 || s.sync.ChainId == base.BCSPALETTE || s.sync.ChainId == base.BCSPALETTE2 {
 		return
 	}
 	if s.sync.ChainId == base.NEO || s.sync.ChainId == base.ONT {

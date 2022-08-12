@@ -72,7 +72,7 @@ func Bin(chainId uint64, hash string) (bin string, err error) {
 	switch chainId {
 	case base.MATIC:
 		bin = "relayer_matic"
-	case base.PLT:
+	case base.PLT, base.PLT2, base.BCSPALETTE, base.BCSPALETTE2:
 		bin = "relayer_plt"
 	case base.ONT:
 		bin = "relayer_ont"
