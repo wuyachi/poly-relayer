@@ -283,6 +283,7 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	if err != nil {
 		return fmt.Errorf("getAptosCoinTypeTag error: %s", err)
 	}
+	fmt.Printf("getAptosCoinTypeTag result: %+v\n", coinTypeTag)
 
 	tran.SetPayload(models.EntryFunctionPayload{
 		Module: models.Module{
@@ -348,7 +349,10 @@ func getAptosCoinTypeTag(toAssetAddress string) (models.TypeTag, error) {
 		return nil, fmt.Errorf("invalid toAssetAddress: %s", toAssetAddress)
 	}
 	fmt.Printf("getAptosCoinTypeTag parts: %+v\n", parts)
-	addr, _ := models.HexToAccountAddress(parts[0])
+	addr, err := models.HexToAccountAddress(parts[0])
+	if err != nil {
+		return nil, fmt.Errorf("getAptosCoinTypeTag HexToAccountAddress failed. err: %s", err)
+	}
 	return models.TypeTagStruct{
 		Address: addr,
 		Module:  parts[1],
