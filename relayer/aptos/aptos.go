@@ -187,7 +187,11 @@ func (s *Submitter) processPolyTx(tx *msg.Tx) (err error) {
 	txJson, _ := json.Marshal(tx)
 	fmt.Printf("tx: %s\n", string(txJson))
 
-	argsZS := common.NewZeroCopySource(tx.Param.Args)
+	fmt.Printf("tx.MerkleValue: %+v\n", tx.MerkleValue)
+	fmt.Printf("tx.MerkleValue.MakeTxParam: %+v\n", tx.MerkleValue.MakeTxParam)
+	fmt.Printf("tx.Param: %+v\n", tx.Param)
+
+	argsZS := common.NewZeroCopySource(tx.MerkleValue.MakeTxParam.Args)
 	argsAssetAddress, eof := argsZS.NextVarBytes()
 	if eof {
 		return fmt.Errorf("%s failed to decode Args %v", s.name, err)
