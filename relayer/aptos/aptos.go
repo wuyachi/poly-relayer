@@ -329,7 +329,8 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	if err != nil {
 		return fmt.Errorf("aptos SimulateTransaction error: %s", err)
 	}
-	_ = simulateTxResp
+	fmt.Printf("simulateTxResp: %+v\n", simulateTxResp)
+
 	rawTx, err := s.sdk.Node().SubmitTransaction(ctx, tran.UserTransaction)
 	if err != nil {
 		return fmt.Errorf("aptos SubmitTransaction error: %s", err)
