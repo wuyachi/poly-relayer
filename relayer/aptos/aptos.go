@@ -122,8 +122,8 @@ func (s *Submitter) run(wallet *wallet.AptosWallet, mq bus.TxBus, delay bus.Dela
 				bus.SafeCall(s.Context, tx, "push to delay queue", func() error { return delay.Delay(context.Background(), tx, tsp) })
 			} else {
 				// todo analyze which err need to retry
-				tsp := time.Now().Unix() + 60
-				bus.SafeCall(s.Context, tx, "push to delay queue", func() error { return delay.Delay(context.Background(), tx, tsp) })
+				//tsp := time.Now().Unix() + 60
+				//bus.SafeCall(s.Context, tx, "push to delay queue", func() error { return delay.Delay(context.Background(), tx, tsp) })
 				//bus.SafeCall(s.Context, tx, "push back to tx bus", func() error { return mq.Push(context.Background(), tx) })
 			}
 		} else {
@@ -349,6 +349,9 @@ func getAptosCoinTypeTag(toAssetAddress string) (models.TypeTag, error) {
 		return nil, fmt.Errorf("invalid toAssetAddress: %s", toAssetAddress)
 	}
 	fmt.Printf("getAptosCoinTypeTag parts: %+v\n", parts)
+	if len(parts[0])%2 == 1 {
+		parts[0] = strings.Replace(parts[0], "0x", "0x0", 1)
+	}
 	addr, err := models.HexToAccountAddress(parts[0])
 	if err != nil {
 		return nil, fmt.Errorf("getAptosCoinTypeTag HexToAccountAddress failed. err: %s", err)
