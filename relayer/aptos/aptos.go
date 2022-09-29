@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/ed25519"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -183,6 +184,9 @@ func (a *Args) Deserialization(source *common.ZeroCopySource) error {
 }
 
 func (s *Submitter) processPolyTx(tx *msg.Tx) (err error) {
+	txJson, _ := json.Marshal(tx)
+	fmt.Printf("tx: %s\n", string(txJson))
+
 	argsZS := common.NewZeroCopySource(tx.Param.Args)
 	argsAssetAddress, eof := argsZS.NextVarBytes()
 	if eof {
