@@ -302,8 +302,8 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 
 	tran.SetExpirationTimestampSecs(uint64(time.Now().
 		Add(3 * time.Minute).Unix())).
-		SetGasUnitPrice(uint64(1)).
-		SetMaxGasAmount(uint64(100)).
+		SetGasUnitPrice(uint64(100)).
+		SetMaxGasAmount(uint64(1000)).
 		SetSequenceNumber(accountInfo.SequenceNumber)
 	if tran.Error() != nil {
 		return fmt.Errorf("compose aptos transaction failed. err: %v", err)
