@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/polynetwork/bridge-common/base"
 	"github.com/polynetwork/bridge-common/chains/aptos"
 	"github.com/polynetwork/bridge-common/chains/poly"
@@ -197,12 +196,7 @@ func (s *Submitter) processPolyTx(tx *msg.Tx) (err error) {
 		return fmt.Errorf("%s failed to decode Args %v", s.name, err)
 	}
 	fmt.Println("argsAssetAddress=", string(argsAssetAddress))
-	toAssetAddress, err := hexutil.Decode(string(argsAssetAddress))
-	if err != nil {
-		return fmt.Errorf("%s failed to decode argsAssetAddress %v", s.name, err)
-	}
-	tx.ToAssetAddress = string(toAssetAddress)
-	fmt.Println("toAssetAddress=", string(toAssetAddress))
+	tx.ToAssetAddress = string(argsAssetAddress)
 
 	//proof, err := hex.DecodeString(tx.AuditPath)
 	//if err != nil {
