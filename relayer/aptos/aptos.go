@@ -24,7 +24,7 @@ import (
 	"time"
 )
 
-const DevnetChainID = 32
+const DevnetChainID = 33
 const mainnetChainID = 1
 
 type Submitter struct {
