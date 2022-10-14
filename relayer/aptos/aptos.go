@@ -24,7 +24,7 @@ import (
 	"time"
 )
 
-const DevnetChainID = 33
+const DevnetChainID = 34
 const mainnetChainID = 1
 
 type Submitter struct {
@@ -330,6 +330,8 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	if err != nil {
 		return fmt.Errorf("aptos SimulateTransaction error: %s", err)
 	}
+	// simulateTxResp: GasUnitPrice:100 GasUsed:1454 SetMaxGasAmount // todo estimate gas limit
+
 	fmt.Printf("simulateTxResp: %+v\n", simulateTxResp)
 
 	rawTx, err := s.sdk.Node().SubmitTransaction(ctx, tran.UserTransaction)
