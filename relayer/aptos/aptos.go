@@ -25,6 +25,7 @@ import (
 )
 
 const DevnetChainID = 34
+const TestnetChainID = 2
 const mainnetChainID = 1
 
 type Submitter struct {
@@ -262,7 +263,7 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 
 	tran := models.Transaction{}
 	if base.ENV == "testnet" {
-		tran.SetChainID(DevnetChainID)
+		tran.SetChainID(TestnetChainID)
 	} else {
 		tran.SetChainID(mainnetChainID)
 	}
