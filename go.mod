@@ -128,4 +128,4 @@ require (
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 )
 
-replace github.com/polynetwork/bridge-common => github.com/wuyachi/bridge-common v0.0.0-20220929021810-a99d613a503e
+replace github.com/polynetwork/bridge-common => github.com/wuyachi/bridge-common v0.0.0-20221021114201-53865182fed6

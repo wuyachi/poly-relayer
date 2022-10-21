@@ -962,8 +962,8 @@ github.com/urfave/cli/v2 v2.3.0/go.mod h1:LJmUH05zAU44vOAcrfzZQKsZbVcdbOG8rtL3/X
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/willf/bitset v1.1.3/go.mod h1:RjeCKbqT1RxIR/KWY6phxZiaY1IyutSBfGjNPySAYV4=
 github.com/wsddn/go-ecdh v0.0.0-20161211032359-48726bab9208/go.mod h1:IotVbo4F+mw0EzQ08zFqg7pK3FebNXpaMsRy2RT+Ees=
-github.com/wuyachi/bridge-common v0.0.0-20220929021810-a99d613a503e h1:tsLd3WmAmVzDC8hCcGH5S1euy/VDhSbETRpSEobPpuo=
-github.com/wuyachi/bridge-common v0.0.0-20220929021810-a99d613a503e/go.mod h1:8KLYYs/EPrJiBC6qJ/WmoD/aCfI4BUF167Qc59VwuO4=
+github.com/wuyachi/bridge-common v0.0.0-20221021114201-53865182fed6 h1:yB/T/r97Rn2gAp5jp7w+LPs5p8kJtO7P+QHKebODDzY=
+github.com/wuyachi/bridge-common v0.0.0-20221021114201-53865182fed6/go.mod h1:8KLYYs/EPrJiBC6qJ/WmoD/aCfI4BUF167Qc59VwuO4=
 github.com/x448/float16 v0.8.4 h1:qLwI1I70+NjRFUR3zs1JPUCgaCXSh3SW62uAKT1mSBM=
 github.com/x448/float16 v0.8.4/go.mod h1:14CWIYCyZA/cWjXOioeEpHeN/83MdbZDRQHoFcYsOfg=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
