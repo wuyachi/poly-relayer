@@ -279,7 +279,7 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	//	},
 	//})
 
-	contractAddr, _ := models.HexToAccountAddress("0x4a98355a0d56b8be0b8c95c85c522cff292916a716907e36a874b31c73b32eb3")
+	contractAddr, _ := models.HexToAccountAddress(s.ccm)
 	coinTypeTag, err := getAptosCoinTypeTag(tx.ToAssetAddress)
 	if err != nil {
 		return fmt.Errorf("getAptosCoinTypeTag error: %s", err)
@@ -287,9 +287,9 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	fmt.Printf("getAptosCoinTypeTag result: %+v\n", coinTypeTag)
 
 	functionName := "relay_unlock_tx"
-	if base.ENV == "testnet" {
-		functionName = "realy_unlock_tx"
-	}
+	//if base.ENV == "testnet" {
+	//	functionName = "realy_unlock_tx"
+	//}
 
 	tran.SetPayload(models.EntryFunctionPayload{
 		Module: models.Module{
