@@ -148,7 +148,7 @@ func (s *Submitter) ProcessTx(m *msg.Tx, compose msg.PolyComposer) (err error) {
 	}
 
 	if m.DstChainId != s.config.ChainId {
-		return fmt.Errorf("%s message dst chain does not match %v", m.DstChainId)
+		return fmt.Errorf("message dst chain does not match %v", m.DstChainId)
 	}
 
 	err = compose(m)
@@ -286,12 +286,17 @@ func (s *Submitter) SubmitTx(tx *msg.Tx) (err error) {
 	}
 	fmt.Printf("getAptosCoinTypeTag result: %+v\n", coinTypeTag)
 
+	functionName := "relay_unlock_tx"
+	if base.ENV == "testnet" {
+		functionName = "realy_unlock_tx"
+	}
+
 	tran.SetPayload(models.EntryFunctionPayload{
 		Module: models.Module{
 			Address: contractAddr,
 			Name:    "wrapper_v1",
 		},
-		Function:      "realy_unlock_tx",
+		Function:      functionName,
 		TypeArguments: []models.TypeTag{coinTypeTag},
 		Arguments: []interface{}{
 			proof,
