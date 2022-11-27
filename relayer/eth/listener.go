@@ -134,6 +134,7 @@ func (l *Listener) getProof(txId []byte, txHeight uint64) (height uint64, proof 
 }
 
 func (l *Listener) Compose(tx *msg.Tx) (err error) {
+	log.Info("compose", "SrcProofHex", tx.SrcProofHex)
 	if len(tx.SrcProofHex) > 0 && tx.Param != nil { // Already fetched the proof
 		log.Info("Proof already fetched for tx", "hash", tx.SrcHash)
 		tx.SrcProof, _ = hex.DecodeString(tx.SrcProofHex)
@@ -203,9 +204,9 @@ func (l *Listener) ScanDst(height uint64) (txs []*msg.Tx, err error) {
 			DstChainId: l.ChainId(),
 			DstHash:    ev.Raw.TxHash.String(),
 			SrcChainId: ev.FromChainID,
-			DstProxy: hex.EncodeToString(ev.ToContract),
-			DstHeight: ev.Raw.BlockNumber,
-			PolyHash: msg.HexStringReverse(hex.EncodeToString(ev.CrossChainTxHash)),
+			DstProxy:   hex.EncodeToString(ev.ToContract),
+			DstHeight:  ev.Raw.BlockNumber,
+			PolyHash:   msg.HexStringReverse(hex.EncodeToString(ev.CrossChainTxHash)),
 		}
 		txs = append(txs, tx)
 	}
@@ -345,7 +346,6 @@ func (l *Listener) Validate(tx *msg.Tx) (err error) {
 	return
 }
 
-
 func (l *Listener) ScanEvents(height uint64, ch chan tools.CardEvent) (err error) {
 	opt := &bind.FilterOpts{
 		Start:   height,
@@ -356,7 +356,9 @@ func (l *Listener) ScanEvents(height uint64, ch chan tools.CardEvent) (err error
 	events := []tools.CardEvent{}
 	for _, address := range l.config.LockProxyContract {
 		p, err := lock_proxy_abi.NewLockProxy(common.HexToAddress(address), l.sdk.Node().Client)
-		if err != nil { return err }
+		if err != nil {
+			return err
+		}
 
 		setManagerProxyEvents, err := p.FilterSetManagerProxyEvent(opt)
 		if err != nil {
