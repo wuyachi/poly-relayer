@@ -20,6 +20,7 @@ package relayer
 import (
 	"context"
 	"fmt"
+	"github.com/polynetwork/poly-relayer/relayer/ont"
 	"github.com/polynetwork/poly-relayer/relayer/ontevm"
 	"sync"
 	"time"
@@ -77,6 +78,8 @@ func GetListener(chain uint64) (listener IChainListener) {
 		listener = new(ok.Listener)
 	case base.ZION:
 		listener = new(po.Listener)
+	case base.ONT:
+		listener = new(ont.Listener)
 	case base.ONTEVM:
 		listener = new(ontevm.Listener)
 	default:
