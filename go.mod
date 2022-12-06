@@ -10,6 +10,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/ontio/ontology v1.11.1-0.20200812075204-26cf1fa5dd47
 	github.com/ontio/ontology-crypto v1.2.1
+	github.com/ontio/ontology-go-sdk v1.11.4
 	github.com/polynetwork/bridge-common v0.0.26-2
 	github.com/urfave/cli/v2 v2.3.0
 )
