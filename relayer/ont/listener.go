@@ -25,6 +25,7 @@ import (
 	"github.com/ontio/ontology/common"
 	vconfig "github.com/ontio/ontology/consensus/vbft/config"
 	"github.com/polynetwork/bridge-common/log"
+	"strconv"
 	"strings"
 	"time"
 
@@ -171,16 +172,22 @@ func (l *Listener) Scan(height uint64) (txs []*msg.Tx, err error) {
 			if err != nil {
 				return nil, fmt.Errorf("decode src lock proxy of ONT ccm event failed. height %d, srcHash %s, err %v", height, event.TxHash, err)
 			}
+
+			dstChainId, err := strconv.ParseUint(states[4].(string), 10, 32)
+			if err != nil {
+				return nil, fmt.Errorf("decode dst chain id of ONT ccm event failed. height %d, srcHash %s, err %v", height, event.TxHash, err)
+			}
+
 			tx := &msg.Tx{
 				TxType:     msg.SRC,
 				TxId:       states[2].(string),
 				SrcHash:    event.TxHash,
-				DstChainId: uint64(states[4].(float64)),
+				DstChainId: dstChainId,
 				SrcHeight:  height,
 				SrcChainId: l.ChainId(),
 				SrcProxy:   srcProxy.ToHexString(),
 				DstProxy:   states[5].(string),
-				SrcParam:   hex.EncodeToString(states[6].([]byte)),
+				SrcParam:   states[6].(string),
 			}
 			l.Compose(tx)
 			txs = append(txs, tx)
