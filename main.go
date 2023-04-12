@@ -536,25 +536,34 @@ func start(c *cli.Context) error {
 	err = relayer.Start(ctx, wg, config)
 
 	// pprof analyse
-	f, e := os.Create("pprof")
-	if e != nil {
-		log.Fatal("could not create CPU profile: ", e)
-	}
-	if e := pprof.StartCPUProfile(f); e != nil {
-		log.Fatal("could not start CPU profile: ", e)
-	}
-
 	ticker := time.NewTicker(2 * time.Minute)
+	ticker2 := time.NewTicker(30 * time.Minute)
+	flag := 0
+
 PPROF:
 	for {
 		select {
 		case <-ticker.C:
-			fmt.Println("stop pprof")
-			pprof.StopCPUProfile()
+			flag++
+			if flag%2 == 1 {
+				fmt.Println("start pprof")
+				f, e := os.Create("pprof")
+				if e != nil {
+					log.Fatal("could not create CPU profile: ", e)
+				}
+				if e := pprof.StartCPUProfile(f); e != nil {
+					log.Fatal("could not start CPU profile: ", e)
+				}
+			} else {
+				fmt.Println("stop pprof")
+				pprof.StopCPUProfile()
+			}
+		case <-ticker2.C:
 			break PPROF
 		default:
 		}
 	}
+	// end
 
 	if err == nil {
 		sc := make(chan os.Signal, 10)
