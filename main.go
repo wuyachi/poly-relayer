@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/polynetwork/bridge-common/log"
 	"github.com/polynetwork/bridge-common/util"
 	"github.com/polynetwork/bridge-common/wallet"
@@ -11,10 +10,8 @@ import (
 	"github.com/urfave/cli/v2"
 	"os"
 	"os/signal"
-	"runtime/pprof"
 	"sync"
 	"syscall"
-	"time"
 )
 
 func main() {
@@ -534,36 +531,36 @@ func start(c *cli.Context) error {
 	status := 0
 	err = relayer.Start(ctx, wg, config)
 
-	// pprof analyse
-	ticker := time.NewTicker(2 * time.Minute)
-	ticker2 := time.NewTicker(8 * time.Minute)
-	flag := 0
-
-PPROF:
-	for {
-		select {
-		case <-ticker.C:
-			flag++
-			if flag%2 == 1 {
-				fmt.Println("start pprof")
-				f, e := os.Create("pprof")
-				if e != nil {
-					log.Fatal("could not create CPU profile: ", e)
-				}
-				if e := pprof.StartCPUProfile(f); e != nil {
-					log.Fatal("could not start CPU profile: ", e)
-				}
-			} else {
-				fmt.Println("stop pprof")
-				pprof.StopCPUProfile()
-			}
-		case <-ticker2.C:
-			break PPROF
-		default:
-			time.Sleep(time.Second * 10)
-		}
-	}
-	// end
+	//	// pprof analyse
+	//	ticker := time.NewTicker(2 * time.Minute)
+	//	ticker2 := time.NewTicker(8 * time.Minute)
+	//	flag := 0
+	//
+	//PPROF:
+	//	for {
+	//		select {
+	//		case <-ticker.C:
+	//			flag++
+	//			if flag%2 == 1 {
+	//				fmt.Println("start pprof")
+	//				f, e := os.Create("pprof")
+	//				if e != nil {
+	//					log.Fatal("could not create CPU profile: ", e)
+	//				}
+	//				if e := pprof.StartCPUProfile(f); e != nil {
+	//					log.Fatal("could not start CPU profile: ", e)
+	//				}
+	//			} else {
+	//				fmt.Println("stop pprof")
+	//				pprof.StopCPUProfile()
+	//			}
+	//		case <-ticker2.C:
+	//			break PPROF
+	//		default:
+	//			time.Sleep(time.Second * 10)
+	//		}
+	//	}
+	//	// end
 
 	if err == nil {
 		sc := make(chan os.Signal, 10)
