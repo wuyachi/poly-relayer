@@ -3,6 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/polynetwork/bridge-common/log"
+	"github.com/polynetwork/bridge-common/util"
+	"github.com/polynetwork/bridge-common/wallet"
+	"github.com/polynetwork/poly-relayer/config"
+	"github.com/polynetwork/poly-relayer/relayer"
 	"github.com/urfave/cli/v2"
 	"os"
 	"os/signal"
@@ -10,12 +15,6 @@ import (
 	"sync"
 	"syscall"
 	"time"
-
-	"github.com/polynetwork/bridge-common/log"
-	"github.com/polynetwork/bridge-common/util"
-	"github.com/polynetwork/bridge-common/wallet"
-	"github.com/polynetwork/poly-relayer/config"
-	"github.com/polynetwork/poly-relayer/relayer"
 )
 
 func main() {
@@ -537,7 +536,7 @@ func start(c *cli.Context) error {
 
 	// pprof analyse
 	ticker := time.NewTicker(2 * time.Minute)
-	ticker2 := time.NewTicker(30 * time.Minute)
+	ticker2 := time.NewTicker(8 * time.Minute)
 	flag := 0
 
 PPROF:
