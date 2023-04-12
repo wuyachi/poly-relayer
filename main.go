@@ -561,6 +561,7 @@ PPROF:
 		case <-ticker2.C:
 			break PPROF
 		default:
+			time.Sleep(time.Second * 10)
 		}
 	}
 	// end
