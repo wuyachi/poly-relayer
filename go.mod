@@ -22,4 +22,7 @@ require (
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 )
 
-replace github.com/rubblelabs/ripple => github.com/siovanus/ripple v0.0.0-20230113075118-4a31480c1af2
+replace (
+	github.com/devfans/zion-sdk => github.com/wuyachi/zion-sdk v0.0.0-20230414031732-28d98ed84d04
+	github.com/rubblelabs/ripple => github.com/siovanus/ripple v0.0.0-20230113075118-4a31480c1af2
+)
